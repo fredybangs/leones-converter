@@ -1,0 +1,1 @@
+appcenter codepush release-react -a alfredbangura77/LeoneConverter -d Production
