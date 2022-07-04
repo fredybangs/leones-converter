@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   SafeAreaView,
@@ -36,11 +37,11 @@ const HelpSCreen = () => {
         <Text
           style={{
             color: '#000',
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: 'bold',
             alignSelf: 'center',
           }}>
-          About
+          Leone Converter
         </Text>
         <Text
           style={{
@@ -54,6 +55,26 @@ const HelpSCreen = () => {
           based on the FAQ document released by Bank of Sierra Leone.
         </Text>
         <ConversionTable />
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 15,
+            fontWeight: 'bold',
+            alignSelf: 'center',
+            marginTop: 15,
+          }}>
+          Global Exchange Rates
+        </Text>
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 13,
+            textAlign: 'center',
+            paddingHorizontal: 8,
+          }}>
+          Currency data delivered are sourced from financial data providers and
+          banks, including the European Central Bank.
+        </Text>
         <View style={{alignSelf: 'center', marginTop: 15}}>
           <Text style={{color: '#000', fontWeight: 'bold', fontSize: 20}}>
             Leave Feedback
