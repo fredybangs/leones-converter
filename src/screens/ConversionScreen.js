@@ -1,6 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Alert, SafeAreaView, Text, View} from 'react-native';
-import {Button, TextInput, IconButton, Snackbar} from 'react-native-paper';
+import {
+  Button,
+  TextInput,
+  IconButton,
+  Snackbar,
+  useTheme,
+} from 'react-native-paper';
 import converter from 'number-to-words';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,6 +19,8 @@ const ConversionScreen = () => {
   const [visible, setVisible] = React.useState(false);
 
   const onDismissSnackBar = () => setVisible(false);
+
+  const {colors} = useTheme();
 
   const copyToClipboard = () => {
     Clipboard.setString(`Le. ${newAmount.figure.toString()}`);
@@ -79,11 +88,37 @@ const ConversionScreen = () => {
         });
       } else {
         setCent(false);
-        let new_val = val / 1000;
+        function toFixed(x) {
+          if (Math.abs(x) < 1.0) {
+            let e = parseInt(x.toString().split('e-')[1]);
+            if (e) {
+              x *= Math.pow(10, e - 1);
+              x = '0.' + new Array(e).join('0') + x.toString().substring(2);
+            }
+          } else {
+            let e = parseInt(x.toString().split('+')[1]);
+            if (e > 20) {
+              e -= 20;
+              x /= Math.pow(10, e);
+              x += new Array(e + 1).join('0');
+            }
+          }
+          return x;
+        }
+        function toFixedTrunc(x, n) {
+          x = toFixed(x);
+          const v = (typeof x === 'string' ? x : x.toString()).split('.');
+          if (n <= 0) return v[0];
+          let f = v[1] || '';
+          if (f.length > n) return `${v[0]}.${f.substr(0, n)}`;
+          while (f.length < n) f += '0';
+          return `${v[0]}.${f}`;
+        }
+        let new_val = toFixedTrunc(val / 1000, 2);
         let cent_val = Number(new_val.toString().split('.').pop());
 
         if (cent_val && new_val % 1 !== 0) {
-          let c_val = cent_val / 10;
+          let c_val = cent_val;
 
           setNewAmount({
             inWords: capitalizeFirstLetter(
@@ -130,7 +165,8 @@ const ConversionScreen = () => {
         }}>
         Amount copied to clipboard!
       </Snackbar>
-      <Text style={{fontWeight: 'bold', color: '#000'}}>
+
+      <Text style={{fontWeight: 'bold', color: colors.primary}}>
         New - Old Leones Converter
       </Text>
       <View style={{width: '100%', marginTop: 10}}>
