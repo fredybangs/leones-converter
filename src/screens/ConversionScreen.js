@@ -1,6 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Alert, SafeAreaView, Text, View} from 'react-native';
-import {Button, TextInput, IconButton, Snackbar} from 'react-native-paper';
+import {
+  Button,
+  TextInput,
+  IconButton,
+  Snackbar,
+  useTheme,
+} from 'react-native-paper';
 import converter from 'number-to-words';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,6 +19,8 @@ const ConversionScreen = () => {
   const [visible, setVisible] = React.useState(false);
 
   const onDismissSnackBar = () => setVisible(false);
+
+  const {colors} = useTheme();
 
   const copyToClipboard = () => {
     Clipboard.setString(`Le. ${newAmount.figure.toString()}`);
@@ -156,7 +165,8 @@ const ConversionScreen = () => {
         }}>
         Amount copied to clipboard!
       </Snackbar>
-      <Text style={{fontWeight: 'bold', color: '#000'}}>
+
+      <Text style={{fontWeight: 'bold', color: colors.primary}}>
         New - Old Leones Converter
       </Text>
       <View style={{width: '100%', marginTop: 10}}>
