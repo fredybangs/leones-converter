@@ -1,11 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ConversionScreen from '../screens/ConversionScreen';
 import HelpSCreen from '../screens/HelpScreen';
+import GlobalConversionScreen from '../screens/GlobalConversionScreen';
 
 const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
@@ -31,6 +31,10 @@ const MainTab = () => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
+          } else if (route.name === 'Exchange') {
+            iconName = focused
+              ? 'ios-swap-horizontal-sharp'
+              : 'ios-swap-horizontal-outline';
           } else if (route.name === 'Help') {
             iconName = focused
               ? 'ios-information-circle-sharp'
@@ -47,6 +51,7 @@ const MainTab = () => {
         tabBarShowLabel: false,
       })}>
       <Tab.Screen name="Home" component={ConversionScreen} />
+      <Tab.Screen name="Exchange" component={GlobalConversionScreen} />
       <Tab.Screen name="Help" component={HelpSCreen} />
     </Tab.Navigator>
   );
