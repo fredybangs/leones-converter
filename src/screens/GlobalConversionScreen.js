@@ -160,7 +160,6 @@ const GlobalConversionScreen = () => {
           }
         })
         .catch(e => {
-          console.log('ERR', e);
           alert('Could not convert, check internet connection');
           return;
         });
@@ -242,6 +241,7 @@ const GlobalConversionScreen = () => {
             .sort((a, b) => a[1].currencyName.localeCompare(b[1].currencyName))
             .map(currency => (
               <Picker.Item
+                style={{color: '#000'}}
                 label={`${currency[1].currencyName} - ${currency[1].id}`}
                 value={currency[1].id}
                 key={currency[1].id}
@@ -280,6 +280,7 @@ const GlobalConversionScreen = () => {
             .sort((a, b) => a[1].currencyName.localeCompare(b[1].currencyName))
             .map(currency => (
               <Picker.Item
+                style={{color: '#000'}}
                 label={`${currency[1].currencyName} - ${currency[1].id}`}
                 value={currency[1].id}
                 key={currency[1].id}
